@@ -1,7 +1,5 @@
-using System;
 using System.Linq;
 using NorthwindConsoleApplication.Logger;
-using NorthwindConsoleApplication.Model;
 using NorthwindConsoleApplication.Services.IO;
 
 
@@ -26,13 +24,10 @@ namespace NorthwindConsoleApplication.Services.View
 
         public void StartMenu()
         {
-
             string tableSelection;
             
             do
-            {   
-                _output.PrintLn("");
-                
+            {
                 // Show menu
                 ShowHeader();
                 ShowTables();
@@ -44,6 +39,11 @@ namespace NorthwindConsoleApplication.Services.View
                     _logger.LogInfo("Invalid Selection");
                     continue;
                 }
+
+                if (tableSelection == "1")
+                    _logger.LogInfo("Option '1' selected");
+                else if (tableSelection == "2")
+                    _logger.LogInfo("Option '2' selected");
                 
                 // Chose operation 
                 ShowCrudOperations();
@@ -72,7 +72,7 @@ namespace NorthwindConsoleApplication.Services.View
                         break;
                 }
                 
-            } while (tableSelection.Equals("q"));
+            } while (tableSelection != null && !tableSelection.Equals("q"));
         }
 
         private void ShowHeader()
@@ -100,6 +100,7 @@ namespace NorthwindConsoleApplication.Services.View
 
         private void ShowCreate(string table)
         {
+            _logger.LogInfo("Option '1' selected");
             if (table == "1")
                 _productView.CreateProduct();
             else
@@ -110,6 +111,7 @@ namespace NorthwindConsoleApplication.Services.View
 
         private void ShowRead(string table)
         {
+            _logger.LogInfo("Option '2' selected");
             if (table == "1")
                 _productView.ReadProduct();
             else
@@ -120,6 +122,7 @@ namespace NorthwindConsoleApplication.Services.View
 
         private void ShowUpdate(string table)
         {
+            _logger.LogInfo("Option '3' selected");
             if (table == "1")
                 _productView.UpdateProduct();
             else
@@ -130,7 +133,7 @@ namespace NorthwindConsoleApplication.Services.View
 
         private void ShowDelete(string table)
         {
-            // delete record<T>
+            _logger.LogInfo("Option '4' selected");
         }
     }
 }

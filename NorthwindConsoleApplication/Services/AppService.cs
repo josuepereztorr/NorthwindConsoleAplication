@@ -10,7 +10,7 @@ namespace NorthwindConsoleApplication.Services
     {
         private readonly ILoggerManager _logger;
         private readonly ConsoleView _view;
-        
+
         public AppService(ILoggerManager logger, ConsoleView view)
         {
             _logger = logger;
@@ -19,19 +19,19 @@ namespace NorthwindConsoleApplication.Services
 
         public void Start()
         {
+            _logger.LogInfo("Application Started");
+            
             try
             {
-                _logger.LogInfo("Application Started");
-
-                // entry point 
                 _view.StartMenu();
 
-                _logger.LogInfo("Application Ended");
             }
             catch (Exception exception)
             {
                 _logger.LogError(exception.Message);
             }
+            
+            _logger.LogInfo("Application Ended");
         }
     }
 }

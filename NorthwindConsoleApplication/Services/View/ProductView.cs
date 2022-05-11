@@ -67,6 +67,8 @@ namespace NorthwindConsoleApplication.Services.View
 
             _database.Add(product);
             _database.Save();
+            
+            _logger.LogInfo($"{product.ProductName} added to database");
         }
 
         public void ReadProduct()
@@ -82,6 +84,11 @@ namespace NorthwindConsoleApplication.Services.View
 
             var input = _input.GetInputString();
             _output.PrintLn("");
+            
+            if (string.IsNullOrWhiteSpace(input) || !new[] {"1","2","3","4"}.Contains(input))
+            {
+                _logger.LogInfo("Invalid Selection");
+            }
 
             switch (input)
             {
@@ -129,6 +136,11 @@ namespace NorthwindConsoleApplication.Services.View
                 
                 if (propertyId != "q")
                     _output.Print("Enter new data value: ");
+                
+                if (string.IsNullOrWhiteSpace(propertyId) || !new[] {"1","2","3","4","5","6","7","8","9","10"}.Contains(propertyId))
+                {
+                    _logger.LogInfo("Invalid Selection");
+                }
 
                 switch (propertyId)
                 {

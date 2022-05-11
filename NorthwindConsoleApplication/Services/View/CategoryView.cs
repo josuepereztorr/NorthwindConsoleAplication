@@ -40,6 +40,8 @@ namespace NorthwindConsoleApplication.Services.View
 
             _database.Add(category);
             _database.Save();
+            
+            _logger.LogInfo($"{category.CategoryName} added to database");
         }
         
         public void ReadCategory()
@@ -54,6 +56,11 @@ namespace NorthwindConsoleApplication.Services.View
 
             var input = _input.GetInputString();
             _output.PrintLn("");
+            
+            if (string.IsNullOrWhiteSpace(input) || !new[] {"1","2","3"}.Contains(input))
+            {
+                _logger.LogInfo("Invalid Selection");
+            }
 
             switch (input)
             {
