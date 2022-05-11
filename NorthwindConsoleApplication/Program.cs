@@ -1,16 +1,17 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NLog;
-using NorthwindConsoleApplication.IO;
 using NorthwindConsoleApplication.Logger;
 using NorthwindConsoleApplication.Model;
 using NorthwindConsoleApplication.Services;
+using NorthwindConsoleApplication.Services.Database;
+using NorthwindConsoleApplication.Services.IO;
+using NorthwindConsoleApplication.Services.View;
 using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 
 namespace NorthwindConsoleApplication
@@ -20,26 +21,18 @@ namespace NorthwindConsoleApplication
         static void Main(string[] args)
         {
             var host = CreateDefaultBuilder(args);
-
-            Run(host.Services);
+            var app = GetAppService(host.Services);
+            app.Start();
         }
-
-        private static void Run(IServiceProvider serviceProvider)
+        
+        private static ILoggerManager GetLoggerManager(IServiceProvider serviceProvider)
         {
-            var logger = GetLoggerManager(serviceProvider);
-
-            try
-            {
-                logger.LogInfo("Application Started");
-
-                // entry point 
-
-                logger.LogInfo("Application Ended");
-            }
-            catch (Exception exception)
-            {
-                logger.LogError(exception.Message);
-            }
+            return serviceProvider.GetRequiredService<ILoggerManager>();
+        }
+        
+        private static AppService GetAppService(IServiceProvider serviceProvider)
+        {
+            return serviceProvider.GetRequiredService<AppService>();
         }
 
         private static IHost CreateDefaultBuilder(string[] args)
@@ -58,6 +51,8 @@ namespace NorthwindConsoleApplication
                     services.AddSingleton<DatabaseService>();
                     services.AddSingleton<ConsoleInputService>();
                     services.AddSingleton<ConsoleOutputService>();
+                    services.AddSingleton<AppService>();
+                    services.AddSingleton<ConsoleView>();
                     services.AddLogging(logger =>
                     {
                         logger.ClearProviders();
@@ -69,16 +64,6 @@ namespace NorthwindConsoleApplication
                     });
                 })
                 .Build();
-        }
-        
-        private static ILoggerManager GetLoggerManager(IServiceProvider serviceProvider)
-        {
-            return serviceProvider.GetRequiredService<ILoggerManager>();
-        }
-        
-        private static DatabaseService GetDatabaseService(IServiceProvider serviceProvider)
-        {
-            return serviceProvider.GetRequiredService<DatabaseService>();
         }
     }
 }

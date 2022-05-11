@@ -3,7 +3,7 @@ using System.Linq;
 using NorthwindConsoleApplication.Logger;
 using NorthwindConsoleApplication.Model;
 
-namespace NorthwindConsoleApplication.Services
+namespace NorthwindConsoleApplication.Services.Database
 {
     public class DatabaseService
     {

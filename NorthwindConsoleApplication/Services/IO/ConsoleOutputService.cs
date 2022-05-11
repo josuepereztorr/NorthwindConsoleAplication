@@ -1,7 +1,7 @@
 using System;
 using NorthwindConsoleApplication.Logger;
 
-namespace NorthwindConsoleApplication.IO
+namespace NorthwindConsoleApplication.Services.IO
 {
     public class ConsoleOutputService
     {
