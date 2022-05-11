@@ -11,14 +11,36 @@ namespace NorthwindConsoleApplication.Services.IO
         {
             _logger = logger;
         }
-        
-        public string GetInput()
+
+        public string GetInputString()
         {
-            string input = Console.ReadLine();
-            
-            // todo check if input is null or empty
-            
+            var input = Console.ReadLine();
             return input;
         }
+        
+        public int GetInputInteger()
+        {
+            var input = Convert.ToInt32(Console.ReadLine());
+            return input;
+        }
+        
+        public decimal GetInputDecimal()
+        {
+            var input = Convert.ToDecimal(Console.ReadLine());
+            return input;
+        }
+        
+        public short GetInputShort()
+        {
+            var input = Convert.ToInt16(Console.ReadLine());
+            return input;
+        }
+        
+        public bool GetInputBool()
+        {
+            var input = Convert.ToBoolean(Console.ReadLine().ToLower());
+            return input;
+        }
+        
     }
 }
