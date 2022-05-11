@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,6 +8,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NLog;
 using NorthwindConsoleApplication.Logger;
+using NorthwindConsoleApplication.Model;
+using NorthwindConsoleApplication.Services;
 using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 
 namespace NorthwindConsoleApplication
@@ -35,6 +38,10 @@ namespace NorthwindConsoleApplication
                     {
                         logger.ClearProviders();
                         logger.SetMinimumLevel(LogLevel.Information);
+                    });
+                    services.AddDbContext<NWConsole_48_JPTContext>(options =>
+                    {
+                        options.UseSqlServer(context.Configuration.GetConnectionString("DbConnection"));
                     });
                 })
                 .Build();
