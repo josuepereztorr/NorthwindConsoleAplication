@@ -11,7 +11,7 @@ namespace NorthwindConsoleApplication.Services
         private readonly ILoggerManager _logger;
         private readonly ConsoleView _view;
         
-        public AppService(NWConsole_48_JPTContext context, ILoggerManager logger, ConsoleView view, ConsoleInputService input, ConsoleOutputService output)
+        public AppService(ILoggerManager logger, ConsoleView view)
         {
             _logger = logger;
             _view = view;

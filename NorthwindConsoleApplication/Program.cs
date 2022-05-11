@@ -53,6 +53,8 @@ namespace NorthwindConsoleApplication
                     services.AddSingleton<ConsoleOutputService>();
                     services.AddSingleton<AppService>();
                     services.AddSingleton<ConsoleView>();
+                    services.AddSingleton<ProductView>();
+                    services.AddSingleton<CategoryView>();
                     services.AddLogging(logger =>
                     {
                         logger.ClearProviders();
