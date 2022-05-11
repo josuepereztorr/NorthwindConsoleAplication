@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NLog;
+using NorthwindConsoleApplication.IO;
 using NorthwindConsoleApplication.Logger;
 using NorthwindConsoleApplication.Model;
 using NorthwindConsoleApplication.Services;
@@ -26,9 +27,7 @@ namespace NorthwindConsoleApplication
             {
                 logger.LogInfo("Application Started");
 
-                // testing DatabaseService 
-                var aProduct = dbService.GetById<Product>(1);
-                Console.WriteLine(aProduct.ProductName);
+                // entry point 
 
                 logger.LogInfo("Application Ended");
             }
@@ -52,6 +51,8 @@ namespace NorthwindConsoleApplication
                 {
                     services.AddSingleton<ILoggerManager, LoggerManager>();
                     services.AddSingleton<DatabaseService>();
+                    services.AddSingleton<ConsoleInputService>();
+                    services.AddSingleton<ConsoleOutputService>();
                     services.AddLogging(logger =>
                     {
                         logger.ClearProviders();
