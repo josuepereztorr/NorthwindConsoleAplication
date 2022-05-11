@@ -19,6 +19,18 @@ namespace NorthwindConsoleApplication
         static void Main(string[] args)
         {
             var host = CreateDefaultBuilder(args);
+            var logger = CreateLogger(host.Services);
+            
+            try
+            {
+                logger.LogInfo("Application Started");
+
+                logger.LogInfo("Application Ended");
+            }
+            catch (Exception exception)
+            {
+                logger.LogError(exception.Message);
+            }
         }
 
         private static IHost CreateDefaultBuilder(string[] args)
@@ -45,6 +57,11 @@ namespace NorthwindConsoleApplication
                     });
                 })
                 .Build();
+        }
+        
+        private static ILoggerManager CreateLogger(IServiceProvider serviceProvider)
+        {
+            return serviceProvider.GetRequiredService<ILoggerManager>();
         }
     }
 }
