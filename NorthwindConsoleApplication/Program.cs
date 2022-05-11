@@ -19,11 +19,16 @@ namespace NorthwindConsoleApplication
         static void Main(string[] args)
         {
             var host = CreateDefaultBuilder(args);
-            var logger = CreateLogger(host.Services);
+            var logger = GetLoggerManager(host.Services);
+            var dbService = GetDatabaseService(host.Services);
             
             try
             {
                 logger.LogInfo("Application Started");
+
+                // testing DatabaseService 
+                var aProduct = dbService.GetById<Product>(1);
+                Console.WriteLine(aProduct.ProductName);
 
                 logger.LogInfo("Application Ended");
             }
@@ -46,6 +51,7 @@ namespace NorthwindConsoleApplication
                 .ConfigureServices((context, services) =>
                 {
                     services.AddSingleton<ILoggerManager, LoggerManager>();
+                    services.AddSingleton<DatabaseService>();
                     services.AddLogging(logger =>
                     {
                         logger.ClearProviders();
@@ -59,9 +65,14 @@ namespace NorthwindConsoleApplication
                 .Build();
         }
         
-        private static ILoggerManager CreateLogger(IServiceProvider serviceProvider)
+        private static ILoggerManager GetLoggerManager(IServiceProvider serviceProvider)
         {
             return serviceProvider.GetRequiredService<ILoggerManager>();
+        }
+        
+        private static DatabaseService GetDatabaseService(IServiceProvider serviceProvider)
+        {
+            return serviceProvider.GetRequiredService<DatabaseService>();
         }
     }
 }
