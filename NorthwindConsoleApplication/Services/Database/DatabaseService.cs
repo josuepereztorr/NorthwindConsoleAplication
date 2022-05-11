@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using NorthwindConsoleApplication.Logger;
 using NorthwindConsoleApplication.Model;
 
 namespace NorthwindConsoleApplication.Services
@@ -7,10 +8,12 @@ namespace NorthwindConsoleApplication.Services
     public class DatabaseService
     {
         private readonly NWConsole_48_JPTContext _context;
+        private readonly ILoggerManager _logger;
 
-        public DatabaseService(NWConsole_48_JPTContext context)
+        public DatabaseService(NWConsole_48_JPTContext context, ILoggerManager logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         public TEntity GetById<TEntity>(int id) where TEntity : class 

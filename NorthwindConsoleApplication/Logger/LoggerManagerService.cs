@@ -2,7 +2,7 @@ using NLog;
 
 namespace NorthwindConsoleApplication.Logger
 {
-    public class LoggerManager : ILoggerManager
+    public class LoggerManagerService : ILoggerManager
     {
         private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
 
