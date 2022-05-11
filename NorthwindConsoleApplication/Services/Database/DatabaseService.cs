@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using NorthwindConsoleApplication.Logger;
 using NorthwindConsoleApplication.Model;
 
@@ -21,9 +23,9 @@ namespace NorthwindConsoleApplication.Services.Database
             return _context.Set<TEntity>().Find(id);
         }
 
-        public IEnumerable<TEntity> GetAll<TEntity>() where TEntity : class 
+        public IQueryable<TEntity> GetAllQueryable<TEntity>() where TEntity : class 
         {
-            return _context.Set<TEntity>().ToList();
+            return _context.Set<TEntity>();
         }
 
         public void Add<T>(T entity)
@@ -34,17 +36,6 @@ namespace NorthwindConsoleApplication.Services.Database
         public void Save()
         {
             _context.SaveChanges();
-        }
-
-        public void Dispose()
-        {
-            _context.Dispose();
-        }
-
-        public void SaveAndDispose()
-        {
-            _context.SaveChanges();
-            _context.Dispose();
         }
         
     }
